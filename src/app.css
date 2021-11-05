@@ -1,0 +1,7 @@
+.card.hero__header {
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+}

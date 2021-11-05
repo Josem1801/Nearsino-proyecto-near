@@ -1,0 +1,23 @@
+.description {
+  display: grid;
+  place-items: center;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+.description .description__text {
+  display: flex;
+  position: absolute;
+  text-align: center;
+  padding: 4px 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  font-size: 12px;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+.description:hover .description__text {
+  visibility: inherit;
+  opacity: 1;
+}
