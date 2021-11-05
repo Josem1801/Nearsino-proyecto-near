@@ -1,7 +1,6 @@
-import { Context, logging, storage, PersistentMap, u128 } from "near-sdk-as";
+import { Context, logging, PersistentMap, u128 } from "near-sdk-as";
 
-const DEFAULT_TICKETS = 0;
-export const TicketsUser = new PersistentMap<string, i32>("Ticket's Users");
+export const TicketsUser = new PersistentMap<string, i32>("TicketsUser");
 
 /* ---------------- Vew Methods ----------------- */
 //Obtener los tickets
