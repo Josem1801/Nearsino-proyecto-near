@@ -1,34 +1,53 @@
-/*
- * This is an example of an AssemblyScript smart contract with two simple,
- * symmetric functions:
- *
- * 1. setGreeting: accepts a greeting, such as "howdy", and records it for the
- *    user (account_id) who sent the request
- * 2. getGreeting: accepts an account_id and returns the greeting saved for it,
- *    defaulting to "Hello"
- *
- * Learn more about writing NEAR smart contracts with AssemblyScript:
- * https://docs.near.org/docs/develop/contracts/as/intro
- *
- */
+import { Context, logging, storage, PersistentMap, u128 } from "near-sdk-as";
 
-import { Context, logging, storage } from "near-sdk-as";
+const DEFAULT_TICKETS = 0;
+export const TicketsUser = new PersistentMap<string, i32>("Ticket's Users");
 
-const DEFAULT_MESSAGE = "Hello";
-
-// Exported functions will be part of the public interface for your smart contract.
-// Feel free to extract behavior to non-exported functions!
-export function getGreeting(accountId: string): string | null {
-  // This uses raw `storage.get`, a low-level way to interact with on-chain
-  // storage for simple contracts.
-  // If you have something more complex, check out persistent collections:
-  // https://docs.near.org/docs/concepts/data-storage#assemblyscript-collection-types
-  return storage.get<string>(accountId, DEFAULT_MESSAGE);
+/* ---------------- Vew Methods ----------------- */
+//Obtener los tickets
+export function getTickets(accountId: string): i32 {
+  return TicketsUser.getSome(accountId);
 }
 
-export function setGreeting(message: string): void {
+/*----------------Change Methods----------------- */
+
+//Comprar tickets con near
+export function buyTickets(amount: i32): void {
   const accountId = Context.sender;
-  // Use logging.log to record logs permanently to the blockchain!
-  logging.log(`Saving greeting "${message}" for account "${accountId}"`);
-  storage.set(accountId, message);
+  const entriesNumber: i32 = amount * 10;
+  logging.log(`Saving "${entriesNumber}" tickets for account "${accountId}"`);
+  TicketsUser.set(accountId, entriesNumber);
+}
+
+//La recompenza del juego sera el doble miestras si pierde, perdera lo apostado
+export function playGame(accountId: string, amount: i32): string {
+  //Se obtiene el balance del usuario
+  const balance: i32 = TicketsUser.getSome(accountId);
+  //verificamos que tenga los tickets suficientes
+  //Obtenemos el numero aleatoria
+  const randomNumber: i32 = getRandomInt(0, 100);
+
+  if (balance - amount < 0) {
+    logging.log("El balance no es suficiente. Compra mas tickets");
+    return "null";
+  } else {
+    //Si el jugador pierde, se restan los tickets
+    if (randomNumber > 0 && randomNumber <= 45) {
+      TicketsUser.set(accountId, balance + amount);
+      return "win";
+    } else {
+      //Si el jugador gana se suman los tickets
+      TicketsUser.set(accountId, balance - amount);
+      return "lose";
+    }
+  }
+}
+
+/* ----------------- Utils Methods ------------------- */
+
+//Generar un numero aleatorio
+function getRandomInt(min: number, max: number): i32 {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return i32(Math.floor(Math.random() * (max - min + 1)) + min);
 }
