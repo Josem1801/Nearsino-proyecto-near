@@ -1,5 +1,5 @@
 import "regenerator-runtime/runtime";
-import React from "react";
+import React, { useEffect } from "react";
 import "./app.css";
 import "./global.css";
 
@@ -11,7 +11,10 @@ const { networkId } = getConfig(process.env.NODE_ENV || "development");
 
 export default function App() {
   // after submitting the form, we want to show Notification
-  const [showNotification, setShowNotification] = React.useState(false);
+
+  const handleStart = () => {};
+  useEffect(handleStart, []);
+  const [showNotification] = React.useState(false);
   return (
     <Layout>
       <Card className="hero__header" height={50}>
@@ -25,7 +28,9 @@ export default function App() {
           Balance: {}
         </span>
       </Card>
-      <Card height={400}></Card>
+      <Card height={400}>
+        <button onClick={handleStart}>Play</button>
+      </Card>
       {showNotification && <Notification />}
     </Layout>
   );
