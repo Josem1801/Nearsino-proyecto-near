@@ -8,7 +8,6 @@ function Hero() {
         Comienza a jugar y obten hasta el doble de tu apuesta
       </h2>
       <span>
-        Conectate con Near{" "}
         <img width={25} height={25} src={NearLogo} alt="Near Protocol" />
       </span>
     </div>

@@ -13,10 +13,19 @@ const { networkId } = getConfig(process.env.NODE_ENV || "development");
 
 export default function App() {
   // after submitting the form, we want to show Notification
-
+  const handleBuy = () => {
+    window.contract.buyTickets({ amount: 20 }).then((result) => {
+      console.log(result);
+    });
+  };
   useEffect(() => {
     if (window.walletConnection.isSignedIn()) {
-      window.walletConnection;
+      console.log(window.accountId);
+      window.contract
+        .getTickets({ accountId: window.accountId })
+        .then((tickets) => {
+          console.log(tickets);
+        });
     }
   }, []);
   const [showNotification] = React.useState(false);
@@ -33,7 +42,10 @@ export default function App() {
             <GradientButton gradients={gradientPlay} className="hero__play">
               Play
             </GradientButton>
-            <button className="hero__buy"> Buy tickets</button>
+            <button onClick={handleBuy} className="hero__buy">
+              {" "}
+              Buy tickets
+            </button>
           </Card>
         </div>
       )}
