@@ -26,9 +26,9 @@ export async function initContract() {
     nearConfig.contractName,
     {
       // View methods are read only. They don't modify the state, but usually return some value.
-      viewMethods: ["getGreeting"],
+      viewMethods: ["getTickets"],
       // Change methods can modify the state. But you don't receive the returned value when called.
-      changeMethods: ["createGame"],
+      changeMethods: ["buyTickets", "playGame"],
     }
   );
 }

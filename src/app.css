@@ -3,5 +3,23 @@
   justify-content: space-around;
   color: white;
   font-weight: 700;
+  margin: 20px 0;
   font-size: 15px;
+  width: fit-content;
+}
+
+.card .hero__play {
+  width: 30%;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0 auto;
+}
+
+.hero__isLogin {
+  display: flex;
+  flex-direction: column;
+}
+.hero__isLogin-card {
+  display: grid;
+  place-items: center;
 }

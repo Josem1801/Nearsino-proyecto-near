@@ -180,22 +180,17 @@ aside footer *:last-child {
 }
 
 .header__accountId {
+  width: 110px;
+  text-align: center;
   color: white;
   font-size: 15px;
   padding: 5px 8px;
   border: 2px solid white;
   border-radius: 6px;
-  transition: 0.2s ease-in-out;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
 }
 .header__accountId:hover {
   color: black;
   background: white;
-  cursor: default;
-}
-.header__accountId-menu {
-  visibility: hidden;
-  padding: 8px 12px;
-  width: fit-content;
-
-  height: 0;
 }

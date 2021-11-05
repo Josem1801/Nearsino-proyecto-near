@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { login, logout } from "../utils";
 import PropTypes from "prop-types";
 import GradientButton from "./GradientButton";
 import Svgs from "./SvgsToBackground";
 import NearLogo from "../assets/logo-white.svg";
-function Layout({ children }) {
+function Layout({ children, className }) {
+  const [hover, setHover] = useState(false);
   return (
     <>
       <div className="container__svg">
@@ -16,7 +17,15 @@ function Layout({ children }) {
         <h1>Nearsino</h1>
 
         {window.accountId ? (
-          <span className="header__accountId">{window.accountId}</span>
+          <span
+            className="header__accountId"
+            onClick={logout}
+            onMouseOver={() => setHover(true)}
+            onMouseOut={() => setHover(false)}
+          >
+            {console.log(hover)}
+            {hover ? "Logout" : window.accountId}
+          </span>
         ) : (
           <GradientButton tag="div" onClick={login}>
             Connect with Near{" "}
@@ -24,7 +33,7 @@ function Layout({ children }) {
           </GradientButton>
         )}
       </header>
-      <main>{children}</main>
+      <main className={className}>{children}</main>
       <footer>
         <p>Sistema de pago automatico</p>
       </footer>
@@ -34,5 +43,6 @@ function Layout({ children }) {
 
 Layout.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 export default Layout;

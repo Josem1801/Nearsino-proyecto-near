@@ -7,30 +7,36 @@ import Layout from "./components/Layout";
 import Card from "./components/Card";
 
 import getConfig from "./config";
+import Hero from "./components/Hero";
+import GradientButton from "./components/GradientButton";
 const { networkId } = getConfig(process.env.NODE_ENV || "development");
 
 export default function App() {
   // after submitting the form, we want to show Notification
 
-  const handleStart = () => {};
-  useEffect(handleStart, []);
+  useEffect(() => {
+    if (window.walletConnection.isSignedIn()) {
+      window.walletConnection;
+    }
+  }, []);
   const [showNotification] = React.useState(false);
   return (
     <Layout>
-      <Card className="hero__header" height={50}>
-        <span>Points: </span>
-        <span
-          onClick={() => {
-            console.log(window.walletCollection);
-          }}
-        >
-          {" "}
-          Balance: {}
-        </span>
-      </Card>
-      <Card height={400}>
-        <button onClick={handleStart}>Play</button>
-      </Card>
+      {!window.walletConnection.isSignedIn() ? (
+        <Hero />
+      ) : (
+        <div>
+          <Card className="hero__header" height={40}>
+            <span>Points: {0}</span>
+          </Card>
+          <Card height={320} className="hero__isLogin-card">
+            <GradientButton gradients={gradientPlay} className="hero__play">
+              Play
+            </GradientButton>
+            <button className="hero__buy"> Buy tickets</button>
+          </Card>
+        </div>
+      )}
       {showNotification && <Notification />}
     </Layout>
   );
@@ -66,3 +72,10 @@ function Notification() {
     </aside>
   );
 }
+
+const gradientPlay = [
+  "rgba(172,0,134,0.4962359943977591) 0%",
+  "rgba(124,63,228,0.30015756302521013) 25%",
+  "rgba(3,119,255,0.29735644257703087) 52%",
+  "rgba(11,11,12,0.7035189075630253) 88%",
+];
