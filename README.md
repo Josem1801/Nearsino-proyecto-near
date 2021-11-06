@@ -1,102 +1,72 @@
-near-project
+### Nearsino
+
 ==================
 
-This [React] app was initialized with [create-near-app]
+Apuesta y gana
 
+# Inicio rápido
 
-Quick Start
-===========
+Para ejecutar este proyecto localmente:
 
-To run this project locally:
+1. Requisitos previos: asegúrese de haber instalado [Node.js] ≥ 12
+2. Instalar dependencias: `yarn install`
+3. Ejecute el servidor de desarrollo local: `yarn dev` (consulte` package.json` para
+   lista completa de `scripts` que puede ejecutar con` yarn`)
 
-1. Prerequisites: Make sure you've installed [Node.js] ≥ 12
-2. Install dependencies: `yarn install`
-3. Run the local development server: `yarn dev` (see `package.json` for a
-   full list of `scripts` you can run with `yarn`)
+¡Ahora tendrá un entorno de desarrollo local respaldado por NEAR TestNet!
 
-Now you'll have a local development environment backed by the NEAR TestNet!
+Adelante, juega con la aplicación y el código. A medida que realiza cambios en el código, la aplicación se recargará automáticamente.
 
-Go ahead and play with the app and the code. As you make code changes, the app will automatically reload.
+# Explorando el código
 
+1. El código "backend" reside en la carpeta `/ contract`. Vea el archivo README allí para
+   más información.
+2. El código de la interfaz reside en la carpeta `/ src`. `/ src / index.html` es un gran
+   lugar para comenzar a explorar. Tenga en cuenta que se carga en `/ src / index.js`, donde
+   puede aprender cómo la interfaz se conecta a la cadena de bloques NEAR.
+3. Pruebas: existen diferentes tipos de pruebas para la interfaz y la interfaz inteligente.
+   contrato. Consulte `contract / README` para obtener información sobre cómo se prueba. La interfaz
+   el código se prueba con [jest]. Puede ejecutar ambos a la vez con `yarn run test`.
 
-Exploring The Code
-==================
+# Implementar
 
-1. The "backend" code lives in the `/contract` folder. See the README there for
-   more info.
-2. The frontend code lives in the `/src` folder. `/src/index.html` is a great
-   place to start exploring. Note that it loads in `/src/index.js`, where you
-   can learn how the frontend connects to the NEAR blockchain.
-3. Tests: there are different kinds of tests for the frontend and the smart
-   contract. See `contract/README` for info about how it's tested. The frontend
-   code gets tested with [jest]. You can run both of these at once with `yarn
-   run test`.
+Cada contrato inteligente en NEAR tiene su [propia cuenta asociada] [cuentas cercanas]. Cuando ejecuta `yarn dev`, su contrato inteligente se implementa en NEAR TestNet en vivo con una cuenta desechable. Cuando esté listo para hacerlo permanente, aquí le explicamos cómo hacerlo.
 
+## Paso 0: Instale near-cli (opcional)
 
-Deploy
-======
+[near-cli] es una interfaz de línea de comandos (CLI) para interactuar con la cadena de bloques NEAR. Se instaló en la carpeta local `node_modules` cuando ejecutó` yarn install`, pero para una mejor ergonomía, es posible que desee instalarlo globalmente:
 
-Every smart contract in NEAR has its [own associated account][NEAR accounts]. When you run `yarn dev`, your smart contract gets deployed to the live NEAR TestNet with a throwaway account. When you're ready to make it permanent, here's how.
+    instalación de hilo - global near-cli
 
+O, si prefiere usar la versión instalada localmente, puede prefijar todos los comandos `near` con` npx`
 
-Step 0: Install near-cli (optional)
--------------------------------------
+Asegúrese de que esté instalado con `near --version` (o` npx near --version`)
 
-[near-cli] is a command line interface (CLI) for interacting with the NEAR blockchain. It was installed to the local `node_modules` folder when you ran `yarn install`, but for best ergonomics you may want to install it globally:
+## Paso 1: Crea una cuenta para el contrato
 
-    yarn install --global near-cli
+Cada cuenta en NEAR puede tener como máximo un contrato implementado. Si ya ha creado una cuenta como `your-name.testnet`, puede implementar su contrato en` near-project.your-name.testnet`. Suponiendo que ya ha creado una cuenta en [NEAR Wallet], aquí le mostramos cómo crear `near-project.your-name.testnet`:
 
-Or, if you'd rather use the locally-installed version, you can prefix all `near` commands with `npx`
+1. Autorice NEAR CLI, siguiendo los comandos que le da:
 
-Ensure that it's installed with `near --version` (or `npx near --version`)
+   near login
 
+2. Cree una subcuenta (reemplace "YOUR-NAME" a continuación con el nombre de su cuenta real):
 
-Step 1: Create an account for the contract
-------------------------------------------
+   near create-account near-project.YOUR-NAME.testnet --masterAccount YOUR-NAME.testnet
 
-Each account on NEAR can have at most one contract deployed to it. If you've already created an account such as `your-name.testnet`, you can deploy your contract to `near-project.your-name.testnet`. Assuming you've already created an account on [NEAR Wallet], here's how to create `near-project.your-name.testnet`:
+## Paso 2: establece el nombre del contrato en el código
 
-1. Authorize NEAR CLI, following the commands it gives you:
+Modifique la línea en `src/config.js` que establece el nombre de cuenta del contrato. Configúrelo con la identificación de la cuenta que utilizó anteriormente.
 
-      near login
+const CONTRACT_NAME = process.env.CONTRACT_NAME || 'near-project.YOUR-NAME.testnet'
 
-2. Create a subaccount (replace `YOUR-NAME` below with your actual account name):
+## Paso 3: ¡despliegue!
 
-      near create-account near-project.YOUR-NAME.testnet --masterAccount YOUR-NAME.testnet
+Un comando:
 
+despliegue de hilo
 
-Step 2: set contract name in code
----------------------------------
+Como puede ver en `package.json`, esto hace dos cosas:
 
-Modify the line in `src/config.js` that sets the account name of the contract. Set it to the account id you used above.
-
-    const CONTRACT_NAME = process.env.CONTRACT_NAME || 'near-project.YOUR-NAME.testnet'
-
-
-Step 3: deploy!
----------------
-
-One command:
-
-    yarn deploy
-
-As you can see in `package.json`, this does two things:
-
-1. builds & deploys smart contract to NEAR TestNet
-2. builds & deploys frontend code to GitHub using [gh-pages]. This will only work if the project already has a repository set up on GitHub. Feel free to modify the `deploy` script in `package.json` to deploy elsewhere.
-
-
-Troubleshooting
-===============
-
-On Windows, if you're seeing an error containing `EPERM` it may be related to spaces in your path. Please see [this issue](https://github.com/zkat/npx/issues/209) for more details.
-
-
-  [React]: https://reactjs.org/
-  [create-near-app]: https://github.com/near/create-near-app
-  [Node.js]: https://nodejs.org/en/download/package-manager/
-  [jest]: https://jestjs.io/
-  [NEAR accounts]: https://docs.near.org/docs/concepts/account
-  [NEAR Wallet]: https://wallet.testnet.near.org/
-  [near-cli]: https://github.com/near/near-cli
-  [gh-pages]: https://github.com/tschaub/gh-pages
+1. construye e implementa contratos inteligentes en NEAR TestNet
+2. construye e implementa código frontend en GitHub usando [gh-pages]. Esto solo funcionará si el proyecto ya tiene un repositorio configurado en GitHub. Siéntase libre de modificar el script `deploy` en` package.json` para implementarlo en otro lugar.
