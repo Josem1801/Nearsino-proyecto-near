@@ -1,15 +1,14 @@
 import React from "react";
 import "./hero.css";
-import NearLogo from "../assets/logo-black.svg";
+import CasinoSvg from "../assets/casino.png";
 function Hero() {
   return (
     <div className="hero">
-      <h2 className="hero__title">
-        Comienza a jugar y obten hasta el doble de tu apuesta
-      </h2>
-      <span>
-        <img width={25} height={25} src={NearLogo} alt="Near Protocol" />
-      </span>
+      <div>
+        <h2 className="hero__title">Apuesta y gana</h2>
+        <p>¡Prueba tu suerte!</p>
+      </div>
+      <img width={300} height={300} src={CasinoSvg} alt="Near Protocol" />
     </div>
   );
 }

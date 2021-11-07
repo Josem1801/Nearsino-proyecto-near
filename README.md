@@ -1,10 +1,8 @@
-### Nearsino
-
-==================
+# Nearsino
 
 Apuesta y gana
 
-# Inicio rápido
+## Inicio rápido
 
 Para ejecutar este proyecto localmente:
 

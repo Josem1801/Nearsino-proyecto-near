@@ -1,10 +1,15 @@
 import { storage, Context, logging } from "near-sdk-as";
 import { getTickets, buyTickets, TicketsUser, playGame } from "../index";
 describe("Testing Game ", () => {
+  it("should be return 0 if there aren't tickets", () => {
+    const tickets = getTickets(Context.sender);
+    expect(tickets).toBe(0);
+  });
+
   it("should be buy tickets and get * 10 tickets", () => {
     buyTickets(10);
-    TicketsUser.getSome(Context.sender);
-    expect(TicketsUser.getSome(Context.sender)).toBe(100);
+    const tickets = getTickets(Context.sender);
+    expect(tickets).toBe(100);
   });
 
   it("should return null if the balance is less than the amount", () => {

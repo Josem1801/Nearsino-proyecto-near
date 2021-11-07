@@ -1,5 +1,5 @@
 import "regenerator-runtime/runtime";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./app.css";
 import "./global.css";
 
@@ -12,11 +12,52 @@ import GradientButton from "./components/GradientButton";
 const { networkId } = getConfig(process.env.NODE_ENV || "development");
 
 export default function App() {
+  const [amount, setAmount] = useState();
+  const [tickets, setTickets] = useState();
+  const [reload, setReload] = useState(0);
+  const [disabled, setDisabled] = useState(false);
+  const [disabledPlay, setDisabledPlay] = useState(false);
+  const [whoWin, setWhoWin] = useState();
   // after submitting the form, we want to show Notification
-  const handleBuy = () => {
-    window.contract.buyTickets({ amount: 20 }).then((result) => {
-      console.log(result);
-    });
+  const handleBuy = async (e) => {
+    e.preventDefault();
+    console.log("Estoy intentando comprar");
+    setDisabled(true);
+    if (amount > 0) {
+      try {
+        const result = await window.contract.buyTickets({ amount: amount });
+        console.log(result);
+      } catch (error) {
+        alert("Error en la trasaccion");
+        console.log(error);
+      } finally {
+        setDisabled(false);
+        alert("Tickets agregados correctamente");
+        setReload((prev) => prev + 1);
+      }
+    } else {
+      alert("Ingresa una cantidad valida");
+    }
+  };
+  const handleAmount = (e) => {
+    setAmount(Number(e.target.value));
+  };
+  const handlePlay = async () => {
+    if (tickets - amount > 0) {
+      setDisabledPlay(true);
+      try {
+        window.contract
+          .playGame({ accountId: window.accountId, amount: amount })
+          .then((winner) => {
+            setWhoWin(winner);
+          });
+      } catch (error) {
+        console.log(error);
+        alert("Error la jugar");
+      } finally {
+        setDisabledPlay(false);
+      }
+    }
   };
   useEffect(() => {
     if (window.walletConnection.isSignedIn()) {
@@ -24,30 +65,41 @@ export default function App() {
       window.contract
         .getTickets({ accountId: window.accountId })
         .then((tickets) => {
-          console.log(tickets);
+          setTickets(tickets);
         });
     }
-  }, []);
+  }, [reload]);
   const [showNotification] = React.useState(false);
   return (
     <Layout>
       {!window.walletConnection.isSignedIn() ? (
         <Hero />
       ) : (
-        <div>
-          <Card className="hero__header" height={40}>
-            <span>Points: {0}</span>
-          </Card>
-          <Card height={320} className="hero__isLogin-card">
-            <GradientButton gradients={gradientPlay} className="hero__play">
-              Play
-            </GradientButton>
-            <button onClick={handleBuy} className="hero__buy">
+        <Card height={400} className="hero__isLogin-card">
+          <span className="hero__tickets">Tickets: {tickets}</span>
+          <GradientButton
+            onClick={handlePlay}
+            gradients={gradientPlay}
+            className="hero__play"
+          >
+            Play
+          </GradientButton>
+          {whoWin
+            ? "Congratulations, you win"
+            : "Sorry, but you can try  again"}
+          <form className="hero__buy" onSubmit={handleBuy}>
+            <input
+              onChange={handleAmount}
+              type="number"
+              name="tickets"
+              placeholder="Amount"
+            />
+            <button disabled={disabled} className="hero__buy-btn button">
               {" "}
               Buy tickets
             </button>
-          </Card>
-        </div>
+          </form>
+        </Card>
       )}
       {showNotification && <Notification />}
     </Layout>

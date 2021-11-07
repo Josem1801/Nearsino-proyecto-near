@@ -1,0 +1,25 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  color: white;
+  font-size: 14px;
+  background-size: 100% auto;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  border: none;
+  border-radius: 7px;
+  padding: 5px 8px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.button.hover {
+  background-size: 270% auto !important;
+}
+.button.hover:hover {
+  background-position: right center !important; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
+import "./gradientButton.css";
 function GradientButton({
   children,
   gradients,
@@ -14,35 +14,17 @@ function GradientButton({
   const CustomTag = `${tag}`;
   return (
     <>
-      <CustomTag {...props} className={`button ${className ? className : ""}`}>
+      <CustomTag
+        {...props}
+        style={{
+          background: ` linear-gradient(${degree}deg, ${listOfGradients})`,
+        }}
+        className={`button ${hover ? "hover" : ""} ${
+          className ? className : ""
+        }`}
+      >
         {children}
       </CustomTag>
-      <style jsx>{`
-        .button {
-          background: linear-gradient(${degree}deg, ${listOfGradients});
-        }
-        .button {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: fit-content;
-          height: fit-content;
-          background-size: ${hover ? 270 : 100}% auto;
-          color: white;
-          font-size: 14px;
-          border: none;
-          border-radius: 7px;
-          padding: 5px 8px;
-          cursor: pointer;
-          transition: 0.3s ease-in-out;
-        }
-
-        ${hover ? ".button" : "none"}:hover {
-          background-position: right center; /* change the direction of the change here */
-          color: #fff;
-          text-decoration: none;
-        }
-      `}</style>
     </>
   );
 }

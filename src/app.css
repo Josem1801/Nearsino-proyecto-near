@@ -1,20 +1,14 @@
-.card.hero__header {
-  display: flex;
-  justify-content: space-around;
-  color: white;
-  font-weight: 700;
-  margin: 20px 0;
-  font-size: 15px;
-  width: fit-content;
-}
-
 .card .hero__play {
   width: 30%;
   font-size: 22px;
   font-weight: 700;
   margin: 0 auto;
 }
-
+.hero__tickets {
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+}
 .hero__isLogin {
   display: flex;
   flex-direction: column;
@@ -22,4 +16,32 @@
 .hero__isLogin-card {
   display: grid;
   place-items: center;
+}
+.hero__buy {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+}
+.hero__buy input {
+  font-size: 12px;
+  width: 100px;
+  height: 27px;
+  background: white;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.button.hero__buy-btn {
+  background: linear-gradient(
+    45deg,
+    rgba(133, 133, 133, 0.2) 0%,
+    rgba(0, 0, 0, 0.5) 100%
+  );
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.button.hero__buy-btn:hover {
+  background-color: black;
 }

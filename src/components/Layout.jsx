@@ -10,7 +10,7 @@ function Layout({ children, className }) {
     <>
       <div className="container__svg">
         <Svgs typeSvg="1" width="80%" positionX="-15vw" positionY="0vh" />
-        <Svgs typeSvg="2" width="90%" positionX="14vw" positionY="25vh" />
+        <Svgs typeSvg="2" width="90%" positionX="12vw" positionY="25vh" />
         <Svgs typeSvg="3" width="90%" positionX="50vw" positionY="45vh" />
       </div>
       <header>
@@ -34,9 +34,7 @@ function Layout({ children, className }) {
         )}
       </header>
       <main className={className}>{children}</main>
-      <footer>
-        <p>Sistema de pago automatico</p>
-      </footer>
+      <footer></footer>
     </>
   );
 }
