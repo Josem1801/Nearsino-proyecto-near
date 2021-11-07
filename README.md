@@ -7,7 +7,7 @@ Apuesta y gana
 Para ejecutar este proyecto localmente:
 
 1. Requisitos previos: asegúrese de haber instalado [Node.js] ≥ 12
-2. Instalar dependencias: `yarn install`
+2. Instalar dependencias: `yarn`
 3. Ejecute el servidor de desarrollo local: `yarn dev` (consulte` package.json` para
    lista completa de `scripts` que puede ejecutar con` yarn`)
 
