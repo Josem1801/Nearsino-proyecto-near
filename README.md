@@ -34,7 +34,7 @@ Cada contrato inteligente en NEAR tiene su [propia cuenta asociada] [cuentas cer
 
 [near-cli] es una interfaz de línea de comandos (CLI) para interactuar con la cadena de bloques NEAR. Se instaló en la carpeta local `node_modules` cuando ejecutó` yarn install`, pero para una mejor ergonomía, es posible que desee instalarlo globalmente:
 
-    instalación de hilo - global near-cli
+    yarn install --global near-cli
 
 O, si prefiere usar la versión instalada localmente, puede prefijar todos los comandos `near` con` npx`
 
