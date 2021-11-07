@@ -1,0 +1,11 @@
+.winner {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  font-family: "Poppins", sans-serif;
+  font-size: 22px;
+  padding: 30px 15px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+}

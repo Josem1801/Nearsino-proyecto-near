@@ -12,31 +12,26 @@ describe("Testing Game ", () => {
     expect(tickets).toBe(100);
   });
 
-  it("should return null if the balance is less than the amount", () => {
+  it("should return 404 if the balance is less than the amount", () => {
     buyTickets(10);
-    expect(playGame(Context.sender, 115)).toBe("null");
+    expect(playGame(Context.sender, 205)).toBe(404);
   });
 
-  it("should add the points if the player wins and if lose, take away the tickets", () => {
+  it("should add the points if the player wins and if lose take away the tickets", () => {
     buyTickets(10);
     const balance = TicketsUser.getSome(Context.sender);
     const ticketToPlay = 100;
     const resultGame = playGame(Context.sender, ticketToPlay);
 
-    if (resultGame === "null") {
-      const result = balance;
-      expect(result).toBe(TicketsUser.getSome(Context.sender));
-      expect(resultGame).toBe("null");
-    }
-    if (resultGame === "win") {
+    if (resultGame === 1) {
       const result = balance + ticketToPlay;
       expect(result).toBe(TicketsUser.getSome(Context.sender));
-      expect(resultGame).toBe("win");
+      expect(resultGame).toBe(1);
     }
-    if (resultGame === "lose") {
+    if (resultGame === 0) {
       const result = balance - ticketToPlay;
       expect(result).toBe(TicketsUser.getSome(Context.sender));
-      expect(resultGame).toBe("lose");
+      expect(resultGame).toBe(0);
     }
   });
 });

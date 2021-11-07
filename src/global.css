@@ -112,16 +112,12 @@ fieldset {
 }
 
 input {
-  background-color: var(--shadow);
   border: none;
-  border-radius: 5px 0 0 5px;
-  caret-color: var(--primary);
   color: inherit;
-  padding: 0.25em 1em;
 }
 input::selection {
-  background-color: var(--secondary);
-  color: #efefef;
+  background-color: blue;
+  color: white;
 }
 input:focus {
   box-shadow: 0 0 10em rgba(0, 0, 0, 0.02) inset;

@@ -1,0 +1,14 @@
+.spinner {
+  background: transparent;
+  border-radius: 50%;
+  border: 3px solid white;
+  border-left-color: transparent;
+  animation: spinner 1s infinite cubic-bezier(0.27, 0.6, 0.54, 0.38);
+  width: 20px;
+  height: 20px;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

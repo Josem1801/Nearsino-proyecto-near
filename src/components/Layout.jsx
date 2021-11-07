@@ -23,7 +23,6 @@ function Layout({ children, className }) {
             onMouseOver={() => setHover(true)}
             onMouseOut={() => setHover(false)}
           >
-            {console.log(hover)}
             {hover ? "Logout" : window.accountId}
           </span>
         ) : (

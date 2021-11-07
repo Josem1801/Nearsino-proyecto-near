@@ -33,6 +33,7 @@
     "shelljs": "~0.8.4"
   },
   "dependencies": {
+    "canvas-confetti": "^1.4.0",
     "eslint-plugin-react": "^7.26.1",
     "near-api-js": "~0.43.1",
     "prop-types": "^15.7.2",
